@@ -6,7 +6,7 @@ const auth=async (req,res,next)=>{
    try { 
     // const token=req.cookies.Authorization.replace('Bearer ',"")
     const token=req.header('Authorization').replace('Bearer ','')
-    const decoded=await jwt.verify(token,process.env.JWT_SECRET)
+    const decoded=await jwt.verify(token,'secretToken')
     const user=await User.findOne({_id: decoded._id, tokens: token})
 
     if(!user) throw new Error('Invalid User')
